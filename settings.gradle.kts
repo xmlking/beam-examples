@@ -1,4 +1,4 @@
-rootProject.name = "dataflow"
+rootProject.name = "beam-examples"
 include(
         ":libs:core",
         ":libs:shared",
