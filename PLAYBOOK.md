@@ -9,9 +9,9 @@ Do-it-yourself step-by-step instructions to create this project structure from s
 
 | Software                      | Version         | Optional         |  
 |-------------------------------|-----------------|------------------| 
-| Java                          | 13.0.1          | 13.0.1.j9-adpt   | 
+| Java                          | 1.8.0_232       | 8.0.232.j9-adpt  | 
 | Kotlin                        | 1.13.60         |                  | 
-| Apache Beam                   | 2.0.4.RELEASE   |                  |
+| Apache Beam                   | 2.16.0          |                  |
 | Gradle                        | 6.0.1           |                  |
 | IntelliJ                      |                 | 2019.3           |
 | Docker for Mac                | latest          |                  |
