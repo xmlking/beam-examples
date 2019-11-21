@@ -1,12 +1,14 @@
 # beam-examples
 
-A set of Streaming and Batch **ETL** job examples implementation with **Apache Beam**
+A set of example **Streaming** and **Batch** jobs implementation with **Apache Beam**
 
+`Dataflow brings life to Datalakes` 
 
-Monorepo(apps, libs) project to showcase workspace setup with multiple apps and shared libraries
+![“DataLake with Cloud Dataflow](./docs/dataflow.png)  
 
 ### Features
-1. **Polyglot** - Support multiple languages (java, kotlin)
+1. Monorepo(apps, libs) project to showcase workspace setup with multiple apps and shared libraries
+2. **Polyglot** - Support multiple languages (java, kotlin)
 3. Support multiple testing frameworks (spek, kotlin-test and junit5) 
 4. Support making `FatJar` for submitting  jobs form CI Environment 
 5. Build **lightweight** Docker and [OCI](https://github.com/opencontainers/image-spec) images with [Jib](https://github.com/GoogleContainerTools/jib)
@@ -35,12 +37,13 @@ WordCount pipeline can run on Google Cloud Dataflow if you have a project setup 
     
     gradle :apps:wordcount:run --args="--runner=DataflowRunner --project=$PROJECT_ID --gcpTempLocation=gs://$GCS_BUCKET/dataflow/wordcount/temp/ --stagingLocation=gs://$GCS_BUCKET/dataflow/wordcount/staging/ --inputFile=gs://$GCS_BUCKET/dataflow/wordcount/input/shakespeare.txt --output=gs://$GCS_BUCKET/dataflow/wordcount/output/output.txt"
 
-The 'inputFile' option is defined by default in WordCount options, so that it will run with the input file and produce output files in <gs://your-cloud-storage-bucket>
+The `inputFile` option is defined by default in WordCount options, so that it will run with the input file and produce output files in <gs://your-cloud-storage-bucket>
 
 
 
 ### Reference 
 
+1. [Apache Beam Programming Guide](https://beam.apache.org/documentation/programming-guide/)
 1. https://github.com/xmlking/micro-apps
 2. https://github.com/sfeir-open-source/kbeam
 3. https://github.com/thinhha/gcp-data-project-template
