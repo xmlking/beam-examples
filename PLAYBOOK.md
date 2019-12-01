@@ -93,3 +93,58 @@ gradle :versionDisplay
 ```
 
  
+ ## gCloud
+ 
+ ```bash
+ export PROJECT_ID=micro-starter-kit
+ export GCS_BUCKET=micro-starter-kit
+ export GOOGLE_APPLICATION_CREDENTIALS="/Users/sumo/Developer/Apps/micro-starter-kit.json"
+```
+ 
+ ### Setup Network 
+ ```bash
+ export PROJECT_ID=micro-starter-kit
+ export COMPUTE_REGION=us-west1
+ export COMPUTE_ZONE=us-west1
+ 
+ export MANAGED_ZONE_NAME=micro-zone-name
+ export NETWORK_NAME=micro-network
+ export SUBNET_NAME=micro-subnet
+ export SUBNET_RANGE=10.0.0.0/20
+ export SUBNET_PODS_NAME=micro-subnet-pods
+ export SUBNET_PODS_RANGE=10.11.0.0/16
+ export SUBNET_SERVICES_NAME=micro-subnet-services
+ export SUBNET_SERVICES_RANGE=10.12.0.0/18
+ 
+ export FIREWALL_RULE_NAME=dataflow-allow-internal
+ 
+ # Create VPC network
+ gcloud compute networks create ${NETWORK_NAME} \
+     --project ${PROJECT_ID} \
+     --region ${COMPUTE_REGION} \
+     --subnet-mode custom
+ 
+ 
+ #  Create a subnet
+ gcloud compute networks subnets create ${SUBNET_NAME} \
+   --project ${PROJECT_ID}  \
+   --network ${NETWORK_NAME}  \
+   --region ${COMPUTE_REGION}    \
+   --range ${SUBNET_RANGE}    \
+   --secondary-range ${SUBNET_PODS_NAME}=${SUBNET_PODS_RANGE},${SUBNET_SERVICES_NAME}=${SUBNET_SERVICES_RANGE} \
+   --enable-private-ip-google-access
+ 
+ # Verify
+ gcloud compute networks subnets list --network ${NETWORK_NAME}
+ gcloud compute networks subnets describe ${SUBNET_NAME}
+ 
+ # crerate dataflow-allow-internal firewall rule
+ gcloud compute firewall-rules create ${FIREWALL_RULE_NAME} \
+     --network ${NETWORK_NAME} \
+     --action allow \
+     --direction ingress \
+     --target-tags dataflow \
+     --source-tags dataflow \
+     --priority 0 \
+     --rules tcp:12345-12346
+ ```

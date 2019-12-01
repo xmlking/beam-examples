@@ -120,7 +120,7 @@ open class DoFnContext<I, O>(val context: DoFn<I, O>.ProcessContext) {
 inline fun <I, reified O> PCollection<I>.parDo(
         name: String = "ParDo to ${O::class.simpleName}",
         crossinline transform: DoFnContext<I, O>.() -> Unit): PCollection<O> {
-    val pc = this.apply(
+    val pc = this.apply(name,
             ParDo.of(object : DoFn<I, O>() {
                 @DoFn.ProcessElement
                 fun processElement(context: ProcessContext) {

@@ -23,12 +23,27 @@ export GOOGLE_APPLICATION_CREDENTIALS=<full-path-to-your-json>
 gradle :apps:wordcount:run --args="--runner=DataflowRunner --project=$PROJECT_ID --gcpTempLocation=gs://$GCS_BUCKET/dataflow/wordcount/temp/ --stagingLocation=gs://$GCS_BUCKET/dataflow/wordcount/staging/ --inputFile=gs://$GCS_BUCKET/dataflow/wordcount/input/shakespeare.txt --output=gs://$GCS_BUCKET/dataflow/wordcount/output/output.txt"
 
 # Or with fatJar
-java -jar /Users/schintha/Developer/Work/java/dataflow/apps/wordcount/build/libs/wordcount-master-8a13900-dirty-all.jar \
---runner=DataflowRunner --project=$PROJECT_ID \
+
+java -jar ./apps/wordcount/build/libs/wordcount-master-cf0a145-dirty-all.jar \
+--runner=DataflowRunner \
+--project=$PROJECT_ID \
 --gcpTempLocation=gs://$GCS_BUCKET/dataflow/wordcount/temp/ \
 --stagingLocation=gs://$GCS_BUCKET/dataflow/wordcount/staging/ \
 --inputFile=gs://$GCS_BUCKET/dataflow/wordcount/input/shakespeare.txt \
 --output=gs://$GCS_BUCKET/dataflow/wordcount/output/output.txt
+
+# in a provate network
+java -jar ./apps/wordcount/build/libs/wordcount-master-cf0a145-dirty-all.jar \
+--runner=DataflowRunner \
+--project=$PROJECT_ID \
+--region=us-west1 \
+--network=micro-network \
+--subnetwork=regions/us-west1/subnetworks/micro-subnet  \
+--gcpTempLocation=gs://$GCS_BUCKET/dataflow/wordcount/temp/ \
+--stagingLocation=gs://$GCS_BUCKET/dataflow/wordcount/staging/ \
+--inputFile=gs://$GCS_BUCKET/dataflow/wordcount/input/shakespeare.txt \
+--output=gs://$GCS_BUCKET/dataflow/wordcount/output/output.txt \
+--usePublicIps=false
 ```
 
 #### Deploy Template
