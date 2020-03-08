@@ -1,8 +1,3 @@
-plugins {
-    application
-    id("com.github.johnrengelman.shadow")
-}
-
 val kotlinVersion: String by project
 val beamVersion: String by project
 val csvVersion: String by project
@@ -24,20 +19,9 @@ application {
 //    applicationDefaultJvmArgs = listOf("-noverify", "-XX:TieredStopAtLevel=1")
 }
 
-jib {
-    to {
-        image = "xmlking/${rootProject.name}-${project.name}:${project.version}"
-        // image = "gcr.io/${gcloudProject}/${project.name}:${project.version}"
-    }
-}
-
 tasks {
     shadowJar {
-        manifest {
-            attributes += mapOf("Implementation-Title" to project.name, "Implementation-Version" to project.version)
-        }
-    }
-    jar {
-        enabled = false
+        isZip64 = true
+        mergeServiceFiles()
     }
 }

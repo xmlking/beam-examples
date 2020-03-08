@@ -17,7 +17,7 @@ A set of example **Streaming** and **Batch** jobs implementation with **Apache B
 8. Multiple Runtime (Flink, Spark, Google Cloud Dataflow, Hazelcast Jet ) 
 
 ### Prerequisites
-> see [PLAYBOOK](PLAYBOOK.md)
+> see [PLAYBOOK](docs/PLAYBOOK.md)
 
 ### Quick Start
 
