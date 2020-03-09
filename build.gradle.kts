@@ -1,17 +1,17 @@
+//import pl.allegro.tech.build.axion.release.domain.hooks.HooksConfig
 import org.sonarqube.gradle.SonarQubeTask
 import pl.allegro.tech.build.axion.release.domain.TagNameSerializationConfig
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
-import java.net.URL
-
-val jacocoVersion: String by project
-val jacocoQualityGate: String by project
-val gcloudProject: String by project
-val baseDockerImage: String by project
 
 val kotlinVersion: String by project
 val floggerVersion: String by project
 val hamcrestVersion: String by project
+val jacocoVersion: String by project
+val jacocoQualityGate: String by project
+val gcloudProject: String by project
+val baseDockerImage: String by project
 
 plugins {
     base
@@ -35,7 +35,10 @@ plugins {
     // gradle release
     id("pl.allegro.tech.build.axion-release") version "1.11.0"
 
-    id("com.github.johnrengelman.shadow") version "5.2.0" apply false
+    // Make fat runnable jars
+    // gradle shadowJar
+    // gradle runShadow
+    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 // rootProject config
@@ -55,6 +58,13 @@ scmVersion {
         "develop" to "incrementPatch",
         "master" to "incrementMinor"
     )
+    //hooks(closureOf<HooksConfig> {
+    //    pre("fileUpdate", mapOf(
+    //            "file" to "README.md",
+    //            "pattern" to "{v,p -> /('$'v)/}",
+    //            "replacement" to """{v, p -> "'$'v"}]))"""))
+    //    pre("commit")
+    //})
 }
 
 version = scmVersion.version
@@ -97,11 +107,13 @@ subprojects {
         plugin("org.sonarqube")
         plugin("maven-publish")
         plugin("org.jetbrains.dokka")
-    }
-    plugins.withId("application") {
-        project.apply { plugin("com.github.johnrengelman.shadow") }
+        if (path.startsWith(":apps") && (name != "apps")) {
+            plugin("application")
+            plugin("com.github.johnrengelman.shadow")
+        }
     }
 
+    // do we need this?
     configurations {
         register("bom")
         implementation {
@@ -126,7 +138,6 @@ subprojects {
 
         // Logging
         implementation("com.google.flogger:flogger:$floggerVersion")
-        //runtimeOnly("com.google.flogger:flogger-system-backend:$floggerVersion")
         runtimeOnly("com.google.flogger:flogger-slf4j-backend:$floggerVersion")
     }
 
@@ -219,6 +230,12 @@ subprojects {
                 put("Implementation-Title", project.name)
                 put("Implementation-Version", project.version)
                 put("Implementation-Vendor", project.group)
+            }
+        }
+        plugins.withId("com.github.johnrengelman.shadow") {
+            shadowJar {
+                isZip64 = true
+                mergeServiceFiles()
             }
         }
 

@@ -18,10 +18,3 @@ application {
     mainClassName = "micro.apps.pipeline.Gcs2BqPipeline"
 //    applicationDefaultJvmArgs = listOf("-noverify", "-XX:TieredStopAtLevel=1")
 }
-
-tasks {
-    shadowJar {
-        isZip64 = true
-        mergeServiceFiles()
-    }
-}

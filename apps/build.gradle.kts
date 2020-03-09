@@ -1,5 +1,0 @@
-subprojects {
-    apply {
-        plugin("application")
-    }
-}
