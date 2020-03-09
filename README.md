@@ -9,10 +9,7 @@ A set of example **Streaming** and **Batch** jobs implementation with **Apache B
 ### Features
 1. Monorepo(apps, libs) project to showcase workspace setup with multiple apps and shared libraries
 2. **Polyglot** - Support multiple languages (java, kotlin)
-3. Support multiple testing frameworks (spek, kotlin-test and junit5) 
 4. Support making `FatJar` for submitting  jobs form CI Environment 
-5. Build **lightweight** Docker and [OCI](https://github.com/opencontainers/image-spec) images with [Jib](https://github.com/GoogleContainerTools/jib)
-6. Build native binaries using [GraalVM](https://www.graalvm.org/)
 7. Cloud Native (Run Local, Run on Cloud, Deploy as Template for GCD)
 8. Multiple Runtime (Flink, Spark, Google Cloud Dataflow, Hazelcast Jet ) 
 
